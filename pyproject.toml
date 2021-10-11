@@ -1,0 +1,60 @@
+[tool.black]
+line-length = 110
+target-version = ["py37"]
+
+[tool.isort]
+line_length = 110
+multi_line_output = 3
+known_localfolder = ["pydrinker_gcp", "tests"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "LOCALFOLDER"]
+default_section = "THIRDPARTY"
+include_trailing_comma = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-vv --cov=pydrinker_gcp --cov-report=term-missing"
+
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+secondary = true
+
+[tool.poetry]
+name = "pydrinker-gcp"
+version = "1.0.0-beta.0"
+description = "Google Cloud Platform 'plugin' for pydrinker"
+authors = ["Rafael Henrique da Silva Correia <rafael@abraseucodigo.com.br>"]
+keywords = ["gcp", "consumer", "pub-sub", "google-cloud-platform", "pydrinker"]
+readme = "README.md"
+license = "LGPLv3"
+include = ["LICENSE"]
+homepage = "https://github.com/rafaelhenrique/pydrinker-gcp"
+repository = "https://github.com/rafaelhenrique/pydrinker-gcp"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: System :: Distributed Computing",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+]
+packages = [
+    {include = "pydrinker_gcp"}
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.10"
+google-cloud-pubsub = "^2.8.0"
+pydrinker = "^1.0.0-beta.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-asyncio = "^0.15.1"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
