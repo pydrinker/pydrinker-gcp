@@ -14,7 +14,7 @@ class SubscriptionMessageTranslator(AbstractMessageTranslator):
         This method should return a `dict` instance with two keys: `content`
         and `metadata`.
         The `content` should contain the translated message and, `metadata` a
-        dictionary with translation metadata or an empty `dict`.
+        dictionary with translation metadata.
         """
         translated_message = {"content": None}
         pubsub_message = message.message
