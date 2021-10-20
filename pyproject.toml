@@ -14,11 +14,6 @@ include_trailing_comma = true
 testpaths = ["tests"]
 addopts = "-vv --cov=pydrinker_gcp --cov-report=term-missing"
 
-[[tool.poetry.source]]
-name = "testpypi"
-url = "https://test.pypi.org/simple/"
-secondary = true
-
 [tool.poetry]
 name = "pydrinker-gcp"
 version = "1.0.0-beta.1"
@@ -48,7 +43,7 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.9,<3.10"
 google-cloud-pubsub = "^2.8.0"
-pydrinker = "^1.0.0-beta.3"
+pydrinker = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
