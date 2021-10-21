@@ -1,6 +1,6 @@
 # pydrinker-gcp
-Google Cloud Platform "plugin" for pydrinker 
+![build on github actions](https://github.com/pydrinker/pydrinker-gcp/actions/workflows/test.yml/badge.svg?branch=main)
 
----
+This is a extension of pydrinker for Google Cloud Provider to make pydrinker consume messages from [GCP Subscribers](https://cloud.google.com/pubsub/docs/subscriber).
 
-Calm down your fingers! This project is under construction... wait for scenes from the next chapters :smile:
+To understand more about pydrinker [see org page](https://github.com/pydrinker).
