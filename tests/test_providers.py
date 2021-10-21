@@ -9,8 +9,11 @@ from pydrinker_gcp.providers import SubscriptionProvider
 
 
 @pytest.mark.asyncio
+@mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
 @mock.patch("pydrinker_gcp.providers.BaseSubscriber.get_messages")
-async def test_subscription_provider_fetch_messages_with_messages(mocked_get_messages, received_message):
+async def test_subscription_provider_fetch_messages_with_messages(
+    mocked_get_messages, mocked_subscriber_client, received_message
+):
     mocked_get_messages.return_value = (message for message in [received_message, received_message])
 
     subscription_provider = SubscriptionProvider(
@@ -24,8 +27,11 @@ async def test_subscription_provider_fetch_messages_with_messages(mocked_get_mes
 
 
 @pytest.mark.asyncio
+@mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
 @mock.patch("pydrinker_gcp.providers.BaseSubscriber.get_messages")
-async def test_subscription_provider_fetch_messages_without_messages(mocked_get_messages, received_message):
+async def test_subscription_provider_fetch_messages_without_messages(
+    mocked_get_messages, mocked_subscriber_client, received_message
+):
     subscription_provider = SubscriptionProvider(
         project_id="xablau-xebleu-123456", subscription_id="sample-sub", options={"some": "parameter"}
     )
@@ -35,8 +41,11 @@ async def test_subscription_provider_fetch_messages_without_messages(mocked_get_
 
 
 @pytest.mark.asyncio
+@mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
 @mock.patch("pydrinker_gcp.providers.BaseSubscriber.get_messages")
-async def test_subscription_provider_fetch_messages_with_timeout(mocked_get_messages, received_message):
+async def test_subscription_provider_fetch_messages_with_timeout(
+    mocked_get_messages, mocked_subscriber_client, received_message
+):
     mocked_get_messages.side_effect = DeadlineExceeded(message="Deadline Exceeded")
 
     subscription_provider = SubscriptionProvider(
@@ -51,8 +60,13 @@ async def test_subscription_provider_fetch_messages_with_timeout(mocked_get_mess
 
 
 @pytest.mark.asyncio
+@mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
 @mock.patch("pydrinker_gcp.providers.BaseSubscriber.acknowledge_messages")
-async def test_subscription_provider_confirm_message_success(mocked_acknowledge_messages, received_message):
+async def test_subscription_provider_confirm_message_success(
+    mocked_acknowledge_messages,
+    mocked_subscriber_client,
+    received_message,
+):
     subscription_provider = SubscriptionProvider(
         project_id="xablau-xebleu-123456", subscription_id="sample-sub", options={"some": "parameter"}
     )
@@ -61,9 +75,10 @@ async def test_subscription_provider_confirm_message_success(mocked_acknowledge_
 
 
 @pytest.mark.asyncio
+@mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
 @mock.patch("pydrinker_gcp.providers.BaseSubscriber.acknowledge_messages")
 async def test_subscription_provider_confirm_message_with_timeout(
-    mocked_acknowledge_messages, received_message
+    mocked_acknowledge_messages, mocked_subscriber_client, received_message
 ):
     mocked_acknowledge_messages.side_effect = DeadlineExceeded(message="Deadline Exceeded")
 
@@ -77,8 +92,9 @@ async def test_subscription_provider_confirm_message_with_timeout(
     mocked_acknowledge_messages.assert_called_once_with(ack_ids=["123abc"], some="parameter")
 
 
+@mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
 @mock.patch("pydrinker_gcp.providers.BaseSubscriber.close")
-def test_subscription_provider_stop_success(mocked_close):
+def test_subscription_provider_stop_success(mocked_close, mocked_subscriber_client):
     subscription_provider = SubscriptionProvider(
         project_id="xablau-xebleu-123456", subscription_id="sample-sub", options={"some": "parameter"}
     )

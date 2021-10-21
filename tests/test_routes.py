@@ -1,10 +1,13 @@
+from unittest import mock
+
 from pydrinker.routes import DrinkerRoute
 
 from pydrinker_gcp.message_translators import SubscriptionMessageTranslator
 from pydrinker_gcp.routes import SubscriptionRoute
 
 
-def test_subscription_route_instance():
+@mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
+def test_subscription_route_instance(mocked_subscriber_client):
     def fake_function(message, *args):
         pass
 
