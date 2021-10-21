@@ -16,7 +16,7 @@ addopts = "-vv --cov=pydrinker_gcp --cov-report=term-missing"
 
 [tool.poetry]
 name = "pydrinker-gcp"
-version = "1.0.1"
+version = "1.0.2"
 description = "Google Cloud Platform 'plugin' for pydrinker"
 authors = ["Rafael Henrique da Silva Correia <rafael@abraseucodigo.com.br>"]
 keywords = ["gcp", "consumer", "pub-sub", "google-cloud-platform", "pydrinker"]

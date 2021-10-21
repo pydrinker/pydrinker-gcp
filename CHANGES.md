@@ -1,3 +1,7 @@
+### 1.0.2 (2021-10-20)
+
+* Minor changes about documentation
+
 ### 1.0.1 (2021-10-20)
 
 * Minor changes about documentation
