@@ -2,6 +2,9 @@ import json
 import os
 from unittest import mock
 
+import pytest
+from pydrinker.exceptions import ProviderError
+
 from pydrinker_gcp.base import SUB_AUDIENCE, BaseSubscriber, _get_subscriber
 
 
@@ -116,14 +119,11 @@ def test_get_subscriber_with_service_account_value(
 def test_get_subscriber_without_any_environment_variable(
     mocked_subscriber_client, mocked_from_service_account_info
 ):
-    google_service_account = (
-        '{"type": "service_account", "project_id": "fake-project-123456", "private_key_id": "123"}'
-    )
-    with mock.patch.dict(os.environ, {"GOOGLE_SERVICE_ACCOUNT": google_service_account}):
-        subscriber_client = _get_subscriber()
+    with pytest.raises(ProviderError) as exc:
+        _get_subscriber()
 
-        mocked_from_service_account_info.assert_called_once_with(
-            json.loads(google_service_account), audience=SUB_AUDIENCE
-        )
-        mocked_subscriber_client.assert_called_once_with(credentials=mocked_from_service_account_info())
-        assert subscriber_client == mocked_subscriber_client()
+    error_message = (
+        "cannot set subscriber without GOOGLE_APPLICATION_CREDENTIALS "
+        "or GOOGLE_SERVICE_ACCOUNT environment variables"
+    )
+    assert error_message in str(exc)
