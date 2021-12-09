@@ -114,11 +114,7 @@ def test_get_subscriber_with_service_account_value(
         assert subscriber_client == mocked_subscriber_client()
 
 
-@mock.patch("pydrinker_gcp.base.jwt.Credentials.from_service_account_info")
-@mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
-def test_get_subscriber_without_any_environment_variable(
-    mocked_subscriber_client, mocked_from_service_account_info
-):
+def test_get_subscriber_without_any_environment_variable():
     with pytest.raises(ProviderError) as exc:
         _get_subscriber()
 
