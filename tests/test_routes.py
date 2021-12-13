@@ -6,8 +6,9 @@ from pydrinker_gcp.message_translators import SubscriptionMessageTranslator
 from pydrinker_gcp.routes import SubscriptionRoute
 
 
+@mock.patch("pydrinker_gcp.base._get_subscriber")
 @mock.patch("pydrinker_gcp.base.pubsub_v1.SubscriberClient")
-def test_subscription_route_instance(mocked_subscriber_client):
+def test_subscription_route_instance(mocked_subscriber_client, mocked_get_subscriber):
     def fake_function(message, *args):
         pass
 

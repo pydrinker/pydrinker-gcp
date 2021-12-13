@@ -11,12 +11,13 @@ default_section = "THIRDPARTY"
 include_trailing_comma = true
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = "tests"
 addopts = "-vv --cov=pydrinker_gcp --cov-report=term-missing"
+env = "GOOGLE_APPLICATION_CREDENTIALS=\nGOOGLE_SERVICE_ACCOUNT=\n"
 
 [tool.poetry]
 name = "pydrinker-gcp"
-version = "1.0.2"
+version = "1.1.2"
 description = "Google Cloud Platform 'plugin' for pydrinker"
 authors = ["Rafael Henrique da Silva Correia <rafael@abraseucodigo.com.br>"]
 keywords = ["gcp", "consumer", "pub-sub", "google-cloud-platform", "pydrinker"]
@@ -49,6 +50,7 @@ pydrinker = "^1.0.0"
 pytest = "^6.2.5"
 pytest-asyncio = "^0.15.1"
 pytest-cov = "^3.0.0"
+pytest-env = "^0.6.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
